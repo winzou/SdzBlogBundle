@@ -13,8 +13,8 @@ class ArticleType extends AbstractType
             ->add('date')
             ->add('titre')
             ->add('contenu')
-			->add('pseudo')
-			->add('tags', 'collection', array(
+            ->add('pseudo')
+            ->add('tags', 'collection', array(
                 'type'         => new TagType,
                 'allow_add'    => true,
                 'allow_delete' => true))

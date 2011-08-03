@@ -43,7 +43,7 @@ class Article
      * @ORM\Column(name="contenu", type="text")
      */
     private $contenu;
-	
+    
    /**
     * @var string $pseudo
     *
@@ -59,7 +59,7 @@ class Article
     public function __construct()
     {
         $this->tags = new ArrayCollection();
-		$this->date = new \Datetime();
+        $this->date = new \Datetime();
     }
 
     /**

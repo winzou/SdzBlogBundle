@@ -32,7 +32,7 @@ class ArticleRepository extends EntityRepository
         $qb ->join('a.tags', 't')
             ->where($qb->expr()->in('t.nom', $tags)); // Puis on filtre sur le nom des tags
 
-        // enfin, on retourne le résultat
+        // enfin, on retourne le rÃ©sultat
         return $qb->getQuery()->getResult();
     }
 }

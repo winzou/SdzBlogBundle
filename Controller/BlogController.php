@@ -12,32 +12,6 @@ use Sdz\BlogBundle\Form\ArticleType;
 
 class BlogController extends Controller
 {
-    // Temporaire : nos articles en dur
-    private $articles = array();
-    
-    public function __construct()
-    {
-        $this->articles = array(
-            array('titre' => 'Mon weekend a Phi Phi Island !', 'slug' => 'mon-weekend-a-phi-phi-island', 'auteur' => 'winzou', 'date' => new \Datetime()),
-            array('titre' => 'Repetition du National Day de Singapour', 'slug' => 'repetition-du-national-day-de-singapour', 'auteur' => 'winzou', 'date' => new \Datetime()),
-            array('titre' => 'Chiffre d\'affaire en hausse', 'slug' => 'chiffre-d-affaire-en-hausse', 'auteur' => 'M@teo21', 'date' => new \Datetime())
-        );
-    }
-    
-    // Méthode pour vérifier qu'un article existe
-    private function article_existe($slug)
-    {
-        foreach($this->articles as $article)
-        {
-            if( $article['slug'] == $slug )
-            {
-                return $article;
-            }
-        }
-        
-        return false;
-    }
-    
     public function listeAction($page)
     {
         // On ne sait pas combien de pages il y a, mais on sait qu'une page
