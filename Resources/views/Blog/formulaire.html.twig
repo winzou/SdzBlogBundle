@@ -1,6 +1,37 @@
 <form method="post" {{ form_enctype(form) }}>
 	
 	{{ form_widget(form) }}
+	
+	<a href="#" id="add_tag">Ajouter un tag</a>
+
+	<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+
+	<script type="text/javascript">
+	$(document).ready(function() {
+		// On récupère le div en question, qui contient l'attribut data-prototype qui nous intéresse
+		var $container = $('#sdz_blogbundle_articletype_tags');
+		
+		// On définit une fonction qui va ajouter un champ
+		function add_tag() {
+			// On définit le numéro du champ (en comptant le nombre de champs déjà ajoutés)
+			index = $container.children().length;
+
+			// On ajoute à la fin du div le contenu de data-prototype,
+			// après avoir remplacé la variable $$name$$ qu'il contient par le numéro du champ
+			$container.append(
+				$($container.attr('data-prototype').replace(/\$\$name\$\$/g, index))
+			);
+		}
+		
+		// On ajoute un premier champ directement
+		add_tag();
+		
+		// On ajoute un nouveau champ à chaque clic sur le lien d'ajout
+		$('#add_tag').click(function() {
+			add_tag();
+		});
+	});
+	</script>
 
 	<input type="submit" />
 </form>

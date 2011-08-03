@@ -7,6 +7,9 @@ use Symfony\Component\Httpfoundation\Response;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+use Sdz\BlogBundle\Entity\Article;
+use Sdz\BlogBundle\Form\ArticleType;
+
 class BlogController extends Controller
 {
     // Temporaire : nos articles en dur
@@ -71,18 +74,65 @@ class BlogController extends Controller
 
     public function ajouterAction()
     {
-        // Ici, on s'occupera de la création et de la gestion du formulaire (via un service).
+        $article = new Article;
+        $form = $this->createForm(new ArticleType(), $article);
 
-        return $this->render('SdzBlogBundle:Blog:ajouter.html.twig');
+        $request = $this->get('request');
+        if( $request->getMethod() == 'POST' )
+        {
+            $form->bindRequest($request);
+            if( $form->isValid() )
+            {
+                $em = $this->getDoctrine()->getEntityManager();
+
+                $em->persist($article);
+                foreach($article->getTags() as $tag)
+                {
+                    $em->persist($tag);
+                }
+                $em->flush();
+
+                return $this->redirect( $this->generateUrl('sdzblog') );
+            }
+        }
+
+        return $this->render('SdzBlogBundle:Blog:ajouter.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     public function modifierAction($id)
     {
-        // Ici, on récupérera l'article correspondant à l'$id.
+        $em = $this->getDoctrine()->getEntityManager();
 
-        // Ici, on s'occupera de la création et de la gestion du formulaire (via un service).
+        // On verifie que l'article d'id $id existe bien, sinon erreur 404
+        if( ! $article = $em->getRepository('Sdz\BlogBundle\Entity\Article')->find($id) )
+        {
+            throw new NotFoundHttpException('Article[id='.$id.'] inexistant');
+        }
 
-        return $this->render('SdzBlogBundle:Blog:modifier.html.twig');
+        $form = $this->createForm(new ArticleType(), $article);
+
+        $request = $this->get('request');
+        if( $request->getMethod() == 'POST' )
+        {
+            $form->bindRequest($request);
+            if( $form->isValid() )
+            {
+                $em->persist($article);
+                foreach($article->getTags() as $tag)
+                {
+                    $em->persist($tag);
+                }
+                $em->flush();
+
+                return $this->redirect( $this->generateUrl('sdzblog') );
+            }
+        }
+
+        return $this->render('SdzBlogBundle:Blog:modifier.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     public function supprimerAction($id)

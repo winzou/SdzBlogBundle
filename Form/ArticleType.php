@@ -13,11 +13,23 @@ class ArticleType extends AbstractType
             ->add('date')
             ->add('titre')
             ->add('contenu')
+			->add('pseudo')
+			->add('tags', 'collection', array(
+                'type'         => new TagType,
+                'allow_add'    => true,
+                'allow_delete' => true))
         ;
     }
 
     public function getName()
     {
         return 'sdz_blogbundle_articletype';
+    }
+
+    public function getDefaultOptions(array $options)
+    {
+        return array(
+            'data_class' => 'Sdz\BlogBundle\Entity\Article',
+        );
     }
 }
