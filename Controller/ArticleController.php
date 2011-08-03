@@ -21,7 +21,7 @@ class ArticleController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entities = $em->getRepository('SdzBlogBundle:Article')->findAll();
+        $entities = $em->getRepository('SdzBlogBundle:Article')->getByDate(new \Datetime('2010-01-01'), new \Datetime('2010-12-31'));
 
         return $this->render('SdzBlogBundle:Article:index.html.twig', array(
             'entities' => $entities

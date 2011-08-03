@@ -12,4 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class ArticleRepository extends EntityRepository
 {
+    public function getByDate(\Datetime $date1, \Datetime $date2)
+    {
+        $queryBuilder = $this->createQueryBuilder('a');
+        $queryBuilder->where('a.date BETWEEN :date1 AND :date2')
+            ->setParameter('date1', $date1->format('Y-m-d'))
+            ->setParameter('date2', $date2->format('Y-m-d'));
+        
+        $query = $queryBuilder->getQuery();
+        
+        return $query->getResult();
+    }
 }
