@@ -9,6 +9,6 @@ class BlogController extends Controller
 {
     public function indexAction()
     {
-        return new Response("Hello World !");
+        return $this->render('SdzBlogBundle:Blog:index.html.twig');
     }
 }
