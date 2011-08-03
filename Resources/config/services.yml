@@ -1,0 +1,7 @@
+parameters:
+#    sdz_blog.example.class: Sdz\BlogBundle\Example
+
+services:
+#    sdz_blog.example:
+#        class: %sdz_blog.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
