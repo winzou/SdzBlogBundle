@@ -1,3 +1,7 @@
 SdzBlogBundle_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: SdzBlogBundle:Default:index }
+
+HelloTheWorld:
+    pattern:  /hello-world
+    defaults: { _controller: SdzBlogBundle:Blog:index }
