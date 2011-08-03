@@ -9,33 +9,33 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BlogController extends Controller
 {
-	// Temporaire : nos articles en dur
-	private $articles = array();
-	
-	public function __construct()
-	{
-		$this->articles = array(
-			array('titre' => 'Mon weekend a Phi Phi Island !', 'slug' => 'mon-weekend-a-phi-phi-island', 'auteur' => 'winzou', 'date' => new \Datetime()),
-			array('titre' => 'Repetition du National Day de Singapour', 'slug' => 'repetition-du-national-day-de-singapour', 'auteur' => 'winzou', 'date' => new \Datetime()),
-			array('titre' => 'Chiffre d\'affaire en hausse', 'slug' => 'chiffre-d-affaire-en-hausse', 'auteur' => 'M@teo21', 'date' => new \Datetime())
-		);
-	}
-	
-	// Méthode pour vérifier qu'un article existe
-	private function article_existe($slug)
-	{
-		foreach($this->articles as $article)
-		{
-			if( $article['slug'] == $slug )
-			{
-				return $article;
-			}
-		}
-		
-		return false;
-	}
-	
-	public function listeAction($page)
+    // Temporaire : nos articles en dur
+    private $articles = array();
+    
+    public function __construct()
+    {
+        $this->articles = array(
+            array('titre' => 'Mon weekend a Phi Phi Island !', 'slug' => 'mon-weekend-a-phi-phi-island', 'auteur' => 'winzou', 'date' => new \Datetime()),
+            array('titre' => 'Repetition du National Day de Singapour', 'slug' => 'repetition-du-national-day-de-singapour', 'auteur' => 'winzou', 'date' => new \Datetime()),
+            array('titre' => 'Chiffre d\'affaire en hausse', 'slug' => 'chiffre-d-affaire-en-hausse', 'auteur' => 'M@teo21', 'date' => new \Datetime())
+        );
+    }
+    
+    // Méthode pour vérifier qu'un article existe
+    private function article_existe($slug)
+    {
+        foreach($this->articles as $article)
+        {
+            if( $article['slug'] == $slug )
+            {
+                return $article;
+            }
+        }
+        
+        return false;
+    }
+    
+    public function listeAction($page)
     {
         // On ne sait pas combien de pages il y a, mais on sait qu'une page
         // doit être supérieure ou égale à 1.
@@ -47,26 +47,26 @@ class BlogController extends Controller
         }
 
         // Ici, on récupérera la liste des articles, puis on la passera au template.
-		$articles = $this->articles;
+        $articles = $this->articles;
 
         // Mais pour l'instant, on ne fait qu'appeler le template.
         // Ce template n'existe pas encore, on va le créer dans le prochain chapitre.
         return $this->render('SdzBlogBundle:Blog:liste.html.twig', array(
-			'articles' => $articles
-		));
+            'articles' => $articles
+        ));
     }
 
     public function voirAction($slug)
     {
         // Ici, on récupérera l'article correspondant au $slug.
-		if( ( $article = $this->article_existe($slug) ) === false )
-		{
-			throw new NotFoundHttpException('Article inexistant (slug = '.$slug.')');
-		}
-		
+        if( ( $article = $this->article_existe($slug) ) === false )
+        {
+            throw new NotFoundHttpException('Article inexistant (slug = '.$slug.')');
+        }
+        
         return $this->render('SdzBlogBundle:Blog:voir.html.twig', array(
-			'article' => $article
-		));
+            'article' => $article
+        ));
     }
 
     public function ajouterAction()
