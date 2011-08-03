@@ -9,7 +9,7 @@ sdzblog:
         page:  \d+
 
 sdzblog_voir:
-    pattern:   /{slug}
+    pattern:   /voir/{id}
     defaults:  { _controller: SdzBlogBundle:Blog:voir }
 
 sdzblog_ajouter:

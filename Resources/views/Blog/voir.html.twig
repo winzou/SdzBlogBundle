@@ -6,10 +6,24 @@
 
 	<h2>Lecture de l'article {{ article.titre }}</h2>
 	
-	<i>Par {{ article.auteur }}, le {{ article.date|date('d/m/Y') }}</i>
+	<i>Par {{ article.pseudo }}, le {{ article.date|date('d/m/Y') }}</i>
 	
 	<div>
-		Et bla et bla et bla on n'a pas de contenu pour l'instant
+		{{ article.contenu }}
+	</div>
+	
+	<div>
+		<h3>Tags</h3>
+		
+		<ul>
+		{% for tag in article.tags %}
+			<li>{{ tag.nom }}</li>
+		{% endfor %}
+		</ul>
+	</div>
+	
+	<div>
+		<a href="{{ path('sdzblog_modifier', {'id': article.id}) }}">Modifier l'article</a>
 	</div>
 	
 {% endblock %}

@@ -23,8 +23,10 @@
 			);
 		}
 		
-		// On ajoute un premier champ directement
-		add_tag();
+		// On ajoute un premier champ directement s'il n'en existe pas déjà
+		if($container.children().length == 0) {
+			add_tag();
+		}
 		
 		// On ajoute un nouveau champ à chaque clic sur le lien d'ajout
 		$('#add_tag').click(function() {

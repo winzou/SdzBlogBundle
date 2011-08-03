@@ -49,24 +49,17 @@ class BlogController extends Controller
             throw new NotFoundHttpException('Page inexistante (page = '.$page.')');
         }
 
-        // Ici, on récupérera la liste des articles, puis on la passera au template.
-        $articles = $this->articles;
-
-        // Mais pour l'instant, on ne fait qu'appeler le template.
-        // Ce template n'existe pas encore, on va le créer dans le prochain chapitre.
+		// Récupération des articles
+		$articles = $this->getDoctrine()->getEntityManager()->getRepository('SdzBlogBundle:Article')->findAll();
+        
         return $this->render('SdzBlogBundle:Blog:liste.html.twig', array(
             'articles' => $articles
         ));
     }
 
-    public function voirAction($slug)
+	// Voir le CookBook sur le DoctrineParamConverter pour comprendre cette syntaxe
+    public function voirAction(Article $article)
     {
-        // Ici, on récupérera l'article correspondant au $slug.
-        if( ( $article = $this->article_existe($slug) ) === false )
-        {
-            throw new NotFoundHttpException('Article inexistant (slug = '.$slug.')');
-        }
-        
         return $this->render('SdzBlogBundle:Blog:voir.html.twig', array(
             'article' => $article
         ));
