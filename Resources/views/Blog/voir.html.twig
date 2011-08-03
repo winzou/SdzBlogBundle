@@ -1,0 +1,15 @@
+{% extends "SdzBlogBundle::layout.html.twig" %}
+
+{% block title %}Lecture d'un article - {{ parent() }}{% endblock %}
+
+{% block sdzblog_body %}
+
+	<h2>Lecture de l'article {{ article.titre }}</h2>
+	
+	<i>Par {{ article.auteur }}, le {{ article.date|date('d/m/Y') }}</i>
+	
+	<div>
+		Et bla et bla et bla on n'a pas de contenu pour l'instant
+	</div>
+	
+{% endblock %}
