@@ -1,3 +1,7 @@
+sdzblog_crud:
+    resource: "routing/article.yml"
+    prefix:   /crud
+
 sdzblog:
     pattern:   /{page}
     defaults:  { _controller: SdzBlogBundle:Blog:liste, page: 1 }
