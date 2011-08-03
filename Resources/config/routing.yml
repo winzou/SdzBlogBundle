@@ -1,7 +1,25 @@
-SdzBlogBundle_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: SdzBlogBundle:Default:index }
+sdzblog:
+    pattern:   /{page}
+    defaults:  { _controller: SdzBlogBundle:Blog:liste, page: 1 }
+    requirements:
+        page:  \d+
 
-HelloTheWorld:
-    pattern:  /hello-world
-    defaults: { _controller: SdzBlogBundle:Blog:index }
+sdzblog_voir:
+    pattern:   /{slug}
+    defaults:  { _controller: SdzBlogBundle:Blog:voir }
+
+sdzblog_ajouter:
+    pattern:   /ajouter/article
+    defaults:  { _controller: SdzBlogBundle:Blog:ajouter }
+
+sdzblog_modifier:
+    pattern:   /modifier/{id}
+    defaults:  { _controller: SdzBlogBundle:Blog:modifier }
+    requirements:
+        id:  \d+
+
+sdzblog_supprimer:
+    pattern:   /supprimer/{id}
+    defaults:  { _controller: SdzBlogBundle:Blog:supprimer }
+    requirements:
+        id:  \d+
