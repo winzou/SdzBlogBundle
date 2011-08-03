@@ -23,4 +23,16 @@ class ArticleRepository extends EntityRepository
         
         return $query->getResult();
     }
+
+    public function getAvecTags(array $tags)
+    {
+        $qb = $this->createQueryBuilder('a');
+
+        // On fait une jointure sur la table des tags, avec pour alias 't'
+        $qb ->join('a.tags', 't')
+            ->where($qb->expr()->in('t.nom', $tags)); // Puis on filtre sur le nom des tags
+
+        // enfin, on retourne le résultat
+        return $qb->getQuery()->getResult();
+    }
 }

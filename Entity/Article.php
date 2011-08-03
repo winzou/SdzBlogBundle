@@ -4,6 +4,8 @@ namespace Sdz\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Sdz\BlogBundle\Entity\Article
  *
@@ -41,7 +43,23 @@ class Article
      * @ORM\Column(name="contenu", type="text")
      */
     private $contenu;
+	
+   /**
+    * @var string $pseudo
+    *
+    * @ORM\Column(name="pseudo", type="string", length=255)
+    */
+    private $pseudo;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Sdz\BlogBundle\Entity\Tag")
+     */
+    private $tags;
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -111,5 +129,45 @@ class Article
     public function getContenu()
     {
         return $this->contenu;
+    }
+
+    /**
+     * Set pseudo
+     *
+     * @param string $pseudo
+     */
+    public function setPseudo($pseudo)
+    {
+        $this->pseudo = $pseudo;
+    }
+
+    /**
+     * Get pseudo
+     *
+     * @return string 
+     */
+    public function getPseudo()
+    {
+        return $this->pseudo;
+    }
+    
+    /**
+     * Add tag
+     *
+     * @param Tag $tag
+     */
+    public function addTag(Tag $tag)
+    {
+        $this->tags[] = $tag;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return ArrayCollection
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }
